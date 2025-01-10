@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hydra <hydra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:16:50 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 04:23:04 by hydra            ###   ########.fr       */
+/*   Updated: 2025/01/10 19:41:31 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,32 @@
 
 void	swap_a(t_stack *stack_a)
 {
-	int	tmp;
+	t_node	*first;
+	t_node	*second;
+	int		tmp;
 
 	if (stack_a->size < 2)
 		return ;
-	tmp = stack_a->array[stack_a->front];
-	stack_a->array[stack_a->front] = stack_a->array[(stack_a->front + 1)
-		% stack_a->capacity];
-	stack_a->array[(stack_a->front + 1) % stack_a->capacity] = tmp;
+	first = stack_a->front;
+	second = first->next;
+	tmp = first->data;
+	first->data = second->data;
+	second->data = tmp;
 }
 
 void	swap_b(t_stack *stack_b)
 {
-	int	tmp;
+	t_node	*first;
+	t_node	*second;
+	int		tmp;
 
 	if (stack_b->size < 2)
 		return ;
-	tmp = stack_b->array[stack_b->front];
-	stack_b->array[stack_b->front] = stack_b->array[(stack_b->front + 1)
-		% stack_b->capacity];
-	stack_b->array[(stack_b->front + 1) % stack_b->capacity] = tmp;
+	first = stack_b->front;
+	second = first->next;
+	tmp = first->data;
+	first->data = second->data;
+	second->data = tmp;
 }
 
 void	swap_ab(t_stack *stack_a, t_stack *stack_b)
@@ -44,22 +50,28 @@ void	swap_ab(t_stack *stack_a, t_stack *stack_b)
 
 void	push_b(t_stack *stack_a, t_stack *stack_b)
 {
-	int	value;
+	t_node	*node;
 
 	if (is_empty(stack_a))
 		return ;
-	value = get_front(stack_a);
-	delete_front(stack_a);
-	insert_front(stack_b, value);
+	node = pop_front(stack_a);
+	if (node)
+	{
+		push_front(stack_b, node->data);
+		free(node);
+	}
 }
 
 void	push_a(t_stack *stack_a, t_stack *stack_b)
 {
-	int	value;
+	t_node	*node;
 
 	if (is_empty(stack_b))
 		return ;
-	value = get_front(stack_b);
-	delete_front(stack_b);
-	insert_front(stack_a, value);
+	node = pop_front(stack_b);
+	if (node)
+	{
+		push_front(stack_a, node->data);
+		free(node);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hydra <hydra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 04:11:45 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 04:12:43 by hydra            ###   ########.fr       */
+/*   Created: 2025/01/10 19:27:34 by schiper           #+#    #+#             */
+/*   Updated: 2025/01/10 19:28:33 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,11 @@ t_stack	*create_stack(int capacity)
 	stack = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	stack->capacity = capacity;
+	stack->array = NULL;
+	stack->front = NULL;
+	stack->rear = NULL;
 	stack->size = 0;
-	stack->front = 0;
-	stack->rear = capacity - 1;
-	stack->array = (int *)malloc(stack->capacity * sizeof(int));
-	if (!stack->array)
-	{
-		free(stack);
-		return (NULL);
-	}
+	stack->capacity = capacity;
 	return (stack);
 }
 
@@ -42,20 +37,28 @@ int	is_full(t_stack *stack)
 	return (stack->size == stack->capacity);
 }
 
-void	insert_front(t_stack *stack, int item)
+void	push_front(t_stack *stack, int item)
 {
-	if (is_full(stack))
-		return ;
-	stack->front = (stack->front - 1 + stack->capacity) % stack->capacity;
-	stack->array[stack->front] = item;
-	stack->size++;
-}
+	t_node	*new_node;
 
-void	insert_rear(t_stack *stack, int item)
-{
-	if (is_full(stack))
+	new_node = (t_node *)malloc(sizeof(t_node));
+	if (!new_node)
 		return ;
-	stack->rear = (stack->rear + 1) % stack->capacity;
-	stack->array[stack->rear] = item;
+	new_node->data = item;
+	if (is_empty(stack))
+	{
+		new_node->next = new_node;
+		new_node->prev = new_node;
+		stack->front = new_node;
+		stack->rear = new_node;
+	}
+	else
+	{
+		new_node->next = stack->front;
+		new_node->prev = stack->rear;
+		stack->front->prev = new_node;
+		stack->rear->next = new_node;
+		stack->front = new_node;
+	}
 	stack->size++;
 }

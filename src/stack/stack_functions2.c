@@ -3,47 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   stack_functions2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hydra <hydra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:12:59 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 04:40:55 by hydra            ###   ########.fr       */
+/*   Updated: 2025/01/10 23:04:00 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 
-void	delete_front(t_stack *stack)
+void	push_rear(t_stack *stack, int item)
 {
-	if (is_empty(stack))
+	t_node	*new_node;
+
+	new_node = (t_node *)malloc(sizeof(t_node));
+	if (!new_node)
 		return ;
-	stack->front = (stack->front + 1) % stack->capacity;
+	new_node->data = item;
+	if (is_empty(stack))
+	{
+		new_node->next = new_node;
+		new_node->prev = new_node;
+		stack->front = new_node;
+		stack->rear = new_node;
+	}
+	else
+	{
+		new_node->next = stack->front;
+		new_node->prev = stack->rear;
+		stack->rear->next = new_node;
+		stack->front->prev = new_node;
+		stack->rear = new_node;
+	}
+	stack->size++;
+}
+
+t_node	*pop_front(t_stack *stack)
+{
+	t_node	*front_node;
+
+	if (is_empty(stack))
+		return (NULL);
+	front_node = stack->front;
+	if (stack->size == 1)
+	{
+		stack->front = NULL;
+		stack->rear = NULL;
+	}
+	else
+	{
+		stack->front = front_node->next;
+		stack->front->prev = stack->rear;
+		stack->rear->next = stack->front;
+	}
 	stack->size--;
+	return (front_node);
 }
 
-void	delete_rear(t_stack *stack)
+t_node	*pop_rear(t_stack *stack)
 {
+	t_node	*rear_node;
+
 	if (is_empty(stack))
-		return ;
-	stack->rear = (stack->rear - 1 + stack->capacity) % stack->capacity;
+		return (NULL);
+	rear_node = stack->rear;
+	if (stack->size == 1)
+	{
+		stack->front = NULL;
+		stack->rear = NULL;
+	}
+	else
+	{
+		stack->rear = rear_node->prev;
+		stack->rear->next = stack->front;
+		stack->front->prev = stack->rear;
+	}
 	stack->size--;
-}
-
-int	get_front(t_stack *stack)
-{
-	if (is_empty(stack))
-		return (INT_MIN);
-	return (stack->array[stack->front]);
-}
-
-int	get_rear(t_stack *stack)
-{
-	if (is_empty(stack))
-		return (INT_MIN);
-	return (stack->array[stack->rear]);
+	return (rear_node);
 }
 
 void	free_stack(t_stack *stack)
 {
-	free(stack->array);
+	t_node	*current;
+	t_node	*next_node;
+
+	if (is_empty(stack))
+	{
+		free(stack);
+		return ;
+	}
+	current = stack->front;
+	while (stack->size > 0)
+	{
+		next_node = current->next;
+		free(current);
+		current = next_node;
+		stack->size--;
+	}
 	free(stack);
 }

@@ -1,3 +1,5 @@
+.vscode
+push_swap
 push_swap.pdf
 *.o
 *.a
