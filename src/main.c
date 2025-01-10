@@ -6,7 +6,7 @@
 /*   By: hydra <hydra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:29:06 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 05:49:18 by hydra            ###   ########.fr       */
+/*   Updated: 2025/01/10 06:18:44 by hydra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ void	sort_stack(t_stack *stack_a, t_stack *stack_b)
 		push_a(stack_a, stack_b);
 }
 
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
 void	init_stack(t_stack *stack, char **split)
 {
 	int	i;
@@ -45,7 +58,6 @@ void	init_stack(t_stack *stack, char **split)
 	while (split[i])
 	{
 		insert_rear(stack, ft_atoi(split[i]));
-		free(split[i]);
 		i++;
 	}
 }
@@ -62,7 +74,7 @@ int	main(int argc, char **argv)
 		stack_b = create_stack(ft_strlen(argv[1]) / 2 + 1);
 		split = ft_split(argv[1], ' ');
 		init_stack(stack_a, split);
-		free(split);
+		free_split(split);
 	}
 	else
 	{
