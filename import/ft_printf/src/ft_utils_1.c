@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hydra <hydra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:05:23 by schiper           #+#    #+#             */
-/*   Updated: 2024/12/02 17:05:45 by schiper          ###   ########.fr       */
+/*   Updated: 2025/01/10 06:07:07 by hydra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_strlen(const char *s)
-{
-	int	i;
+// int	ft_strlen(const char *s)
+// {
+// 	int	i;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (s[i] != '\0')
+// 		i++;
+// 	return (i);
+// }
 
 int	ft_putchar(char c)
 {
