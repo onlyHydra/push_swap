@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 03:47:39 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 23:57:17 by schiper          ###   ########.fr       */
+/*   Updated: 2025/01/11 00:36:39 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,16 @@ t_node				*get_min(t_stack *stack);
 t_node				*get_max(t_stack *stack);
 
 // Sorting algorithms
+
+/** sorts the stack that has only 3 elements in it in ascending order
+ * @param list: the stack to sort
+ */
+void				fast_sort(t_stack *list);
+
+/** sorts the stack that has more than 3 elements in it in ascending order
+ * @param stack_a: the stack to sort
+ * @param stack_b: the stack to use as a buffer
+ */
+void				sort_stack(t_stack *stack_a, t_stack *stack_b);
 
 #endif // STACK_H
