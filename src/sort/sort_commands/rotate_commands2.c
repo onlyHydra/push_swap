@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_functions3.c                                  :+:      :+:    :+:   */
+/*   rotate_commands2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:27:33 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 19:56:50 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:43:45 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	reverse_rotate_ab(t_stack *stack_a, t_stack *stack_b)
 {
-	reverse_rotate_a(stack_a);
-	reverse_rotate_b(stack_b);
+	reverse_rotate_a(stack_a, false);
+	reverse_rotate_b(stack_b, false);
+	if (PRINT_FLAG)
+		ft_printf("rrr\n");
 }
 
 void	rotate(t_stack *stack)

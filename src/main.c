@@ -6,48 +6,36 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:29:06 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 23:24:18 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:22:19 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 #include "stack.h"
 
-void	print_stack(t_stack *stack)
+void	free_errors(t_stack **a)
 {
-	while (!is_empty(stack))
-		ft_printf("%d ", pop_rear(stack)->data);
-	ft_printf("\n");
+	free_stack(*a);
+	ft_printf("Error\n");
+	exit(1);
 }
 
-void	sort_stack(t_stack *stack_a, t_stack *stack_b)
+static void	populate_a(t_stack **a, char **argv)
 {
-	if (stack_a->capacity == stack_b->capacity)
-		return ;
-}
-
-void	free_split(char **split)
-{
-	int	i;
+	long	n;
+	int		i;
 
 	i = 0;
-	while (split[i])
+	while (argv[i])
 	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
-void	init_stack(t_stack *stack, char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		push_rear(stack, ft_atoi(split[i]));
+		if (error_syntax(argv[i]))
+			free_errors(a);
+		n = ft_atoi(argv[i]);
+		if (n > INT_MAX || n < INT_MIN)
+			free_errors(a);
+		if (error_duplicate(*a, (int)n))
+			free_errors(a);
+		push_rear(*a, n);
 		i++;
 	}
 }
@@ -56,25 +44,23 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	char	**split;
 
-	if (argc == 2)
+	stack_a = NULL;
+	stack_b = NULL;
+	if (argc == 1 || (argc == 2 && !argv[1][0]))
+		return (1);
+	else if (argc == 2)
+		argv = ft_split(argv[1], ' ');
+	populate_a(&stack_a, argv + 1);
+	if (!stack_sorted(stack_a))
 	{
-		stack_a = create_stack(ft_strlen(argv[1]) / 2 + 1);
-		stack_b = create_stack(ft_strlen(argv[1]) / 2 + 1);
-		split = ft_split(argv[1], ' ');
-		init_stack(stack_a, split);
-		free_split(split);
+		if (stack_a->size == 2)
+			swap_a(stack_a);
+		else if (stack_a->size == 3)
+			fast_sort(stack_a);
+		else
+			sort_stack(stack_a, stack_b);
 	}
-	else
-	{
-		stack_a = create_stack(argc - 1);
-		stack_b = create_stack(argc - 1);
-		init_stack(stack_a, argv + 1);
-	}
-	sort_stack(stack_a, stack_b);
-	print_stack(stack_a);
 	free_stack(stack_a);
-	free_stack(stack_b);
 	return (0);
 }

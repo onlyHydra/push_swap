@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 00:22:51 by schiper           #+#    #+#             */
-/*   Updated: 2025/01/11 00:28:29 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:22:35 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	sort_stack(t_stack *stack_a, t_stack *stack_b)
 		push_b(stack_a, stack_b);
 	while (stack_a->size > 3 && !stack_sorted(stack_a))
 	{
-		precalculate_a(stack_a);
-		move_a(stack_a, stack_b);
+		precalculate_a(stack_a, stack_b);
+		move_a(&stack_a, &stack_b);
 	}
 	fast_sort(stack_a);
 	while (!is_empty(stack_b))
 	{
-		precalculate_b(stack_b);
-		move_b(stack_a, stack_b);
+		precalculate_b(stack_a, stack_b);
+		move_b(&stack_a, &stack_b);
 	}
 }

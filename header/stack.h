@@ -6,16 +6,19 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 03:47:39 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/11 00:36:39 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:48:39 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #if !defined(STACK_H)
 # define STACK_H
 
+# include "ft_printf.h"
 # include <limits.h>
 # include <stdbool.h>
 # include <stdlib.h>
+
+# define PRINT_FLAG false
 
 typedef struct s_node
 {
@@ -25,6 +28,7 @@ typedef struct s_node
 	bool			below_median;
 	bool			above_median;
 	bool			cheapest;
+	struct s_node	*target;
 	struct s_node	*next;
 	struct s_node	*prev;
 }					t_node;
@@ -95,11 +99,11 @@ void				reverse_rotate(t_stack *stack);
 /** swap the first two elements of stack A
  *  @param stack_a: the stack to swap the elements
  */
-void				swap_a(t_stack *stack_a);
+void				swap_a(t_stack *stack_a, bool print);
 /** swap the first two elements of stack B
  *  @param stack_b: the stack to swap the elements
  */
-void				swap_b(t_stack *stack_b);
+void				swap_b(t_stack *stack_b, bool print);
 /** swap the first two elements of both stack A and stack B
  *  @param stack_a: the stack to swap the elements
  *  @param stack_b: the stack to swap the elements
@@ -119,12 +123,12 @@ void				push_a(t_stack *stack_a, t_stack *stack_b);
 The first element becomes the last one.
  *  @param stack_a: the stack to rotate
  */
-void				rotate_a(t_stack *stack_a);
+void				rotate_a(t_stack *stack_a, bool print);
 /** Shift up all elements of stack b by 1.
 The first element becomes the last one.
  *  @param stack_b: the stack to rotate
  */
-void				rotate_b(t_stack *stack_b);
+void				rotate_b(t_stack *stack_b, bool print);
 /** rotate the stack A and stack B at the same time
  *  @param stack_a: the stack to rotate
  *  @param stack_b: the stack to rotate
@@ -134,12 +138,12 @@ void				rotate_ab(t_stack *stack_a, t_stack *stack_b);
 The last element becomes the first one.
  *  @param stack_a: the stack to reverse rotate
  */
-void				reverse_rotate_a(t_stack *stack_a);
+void				reverse_rotate_a(t_stack *stack_a, bool print);
 /** Shift down all elements of stack b by 1.
 The last element becomes the first one.
  *  @param stack_b: the stack to reverse rotate
  */
-void				reverse_rotate_b(t_stack *stack_b);
+void				reverse_rotate_b(t_stack *stack_b, bool print);
 /** reverse rotate the stack A and stack B at the same time
  *  @param stack_a: the stack to reverse rotate
  *  @param stack_b: the stack to reverse rotate
@@ -176,5 +180,46 @@ void				fast_sort(t_stack *list);
  * @param stack_b: the stack to use as a buffer
  */
 void				sort_stack(t_stack *stack_a, t_stack *stack_b);
+
+/** moves the cheapest node to the top of the stack
+ *  @param stack: the stack to move the cheapest node
+ * @param stack_name: the name of the stack
+ * @param node: the node to move
+ */
+void				prep_for_push(t_stack **stack, t_node *node,
+						char stack_name);
+
+/** find the cheapest node in the stack
+ *  @param stack: the stack to find the cheapest node
+ */
+t_node				*find_cheapest_node(t_stack *stack);
+
+/** preps a stack to push b nodes
+ *  @param stack_a: the stack to prep
+ *  @param stack_b: the stack to push to
+ */
+void				move_b(t_stack **stack_a, t_stack **stack_b);
+
+/** preps cheapest node on top of stack a and pushes to stack b
+ *
+ */
+void				move_a(t_stack **stack_a, t_stack **stack_b);
+
+/**
+ *
+ */
+void				current_index(t_stack *stack);
+
+void				precalculate_a(t_stack *stack_a, t_stack *stack_b);
+
+void				precalculate_b(t_stack *stack_a, t_stack *stack_b);
+
+void				set_cheapest(t_stack *stack);
+
+void				free_errors(t_stack **a);
+
+int					error_syntax(char *str_n);
+
+int					error_duplicate(t_stack *a, int n);
 
 #endif // STACK_H

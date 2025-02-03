@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 23:41:00 by schiper           #+#    #+#             */
-/*   Updated: 2025/01/10 23:50:02 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:50:37 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,39 @@ t_node	*get_max(t_stack *stack)
 		node = node->next;
 	}
 	return (max);
+}
+
+t_node	*find_cheapest_node(t_stack *stack)
+{
+	t_node	*node;
+
+	node = stack->front;
+	while (node->next != stack->front)
+	{
+		if (node->cheapest)
+			return (node);
+		node = node->next;
+	}
+	return (NULL);
+}
+
+void	prep_for_push(t_stack **stack, t_node *node, char stack_name)
+{
+	while (node != (*stack)->front)
+	{
+		if (stack_name == 'a')
+		{
+			if (node->above_median)
+				rotate_a(*stack, false);
+			else
+				reverse_rotate_a(*stack, false);
+		}
+		else if (stack_name == 'b')
+		{
+			if (node->above_median)
+				rotate_b(*stack, false);
+			else
+				reverse_rotate_b(*stack, false);
+		}
+	}
 }
