@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:27:34 by schiper           #+#    #+#             */
-/*   Updated: 2025/01/10 19:28:33 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:32:13 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_stack	*create_stack(int capacity)
 
 int	is_empty(t_stack *stack)
 {
+	if (!stack)
+		return (1);
 	return (stack->size == 0);
 }
 
@@ -61,4 +63,19 @@ void	push_front(t_stack *stack, int item)
 		stack->front = new_node;
 	}
 	stack->size++;
+}
+
+t_stack	*create_empty_stack(int capacity)
+{
+	t_stack	*stack;
+
+	stack = (t_stack *)malloc(sizeof(t_stack));
+	if (!stack)
+		return (NULL);
+	stack->array = NULL;
+	stack->front = NULL;
+	stack->rear = NULL;
+	stack->size = 0;
+	stack->capacity = capacity;
+	return (stack);
 }

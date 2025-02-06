@@ -6,11 +6,34 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:05:24 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/03 15:12:58 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 18:08:25 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
+
+void	set_cheapest(t_stack *stack)
+{
+	t_node	*node;
+	t_node	*cheapest;
+	int		cheapest_value;
+	int		i;
+
+	i = 0;
+	node = stack->front;
+	cheapest_value = INT_MAX;
+	while (i < stack->size)
+	{
+		if (node->push_cost < cheapest_value)
+		{
+			cheapest = node;
+			cheapest_value = node->push_cost;
+		}
+		node = node->next;
+		i++;
+	}
+	cheapest->cheapest = true;
+}
 
 static void	set_target_b(t_stack *stack_a, t_stack *stack_b)
 {

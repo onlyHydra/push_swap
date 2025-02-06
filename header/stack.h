@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 03:47:39 by hydra             #+#    #+#             */
-/*   Updated: 2025/02/03 15:48:39 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:33:32 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
-# define PRINT_FLAG false
+# define PRINT_FLAG true
 
 typedef struct s_node
 {
@@ -221,5 +221,7 @@ void				free_errors(t_stack **a);
 int					error_syntax(char *str_n);
 
 int					error_duplicate(t_stack *a, int n);
+
+t_stack				*create_empty_stack(int capacity);
 
 #endif // STACK_H

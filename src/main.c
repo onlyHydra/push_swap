@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:29:06 by hydra             #+#    #+#             */
-/*   Updated: 2025/02/03 15:22:19 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:32:35 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	stack_a = NULL;
-	stack_b = NULL;
+	stack_a = create_empty_stack(argc - 1);
+	stack_b = create_empty_stack(argc - 1);
 	if (argc == 1 || (argc == 2 && !argv[1][0]))
 		return (1);
 	else if (argc == 2)
@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	if (!stack_sorted(stack_a))
 	{
 		if (stack_a->size == 2)
-			swap_a(stack_a);
+			swap_a(stack_a, true);
 		else if (stack_a->size == 3)
 			fast_sort(stack_a);
 		else

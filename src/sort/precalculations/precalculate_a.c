@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:05:05 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/03 15:09:33 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/03 18:08:30 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	current_index(t_stack *stack)
 		return ;
 	node = stack->front;
 	median = stack->size / 2;
-	while (node)
+	while (i < stack->size)
 	{
 		node->index = i;
 		if (i < median)
@@ -41,32 +41,14 @@ void	current_index(t_stack *stack)
 	}
 }
 
-void	set_cheapest(t_stack *stack)
-{
-	t_node	*node;
-	t_node	*cheapest;
-	int		cheapest_value;
-
-	node = stack->front;
-	cheapest_value = INT_MAX;
-	while (node)
-	{
-		if (node->push_cost < cheapest_value)
-		{
-			cheapest = node;
-			cheapest_value = node->push_cost;
-		}
-		node = node->next;
-	}
-	cheapest->cheapest = true;
-}
-
 static void	cost_analysis_a(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*a_node;
+	int		i;
 
+	i = 0;
 	a_node = stack_a->front;
-	while ((a_node))
+	while (i < stack_a->size)
 	{
 		a_node->push_cost = a_node->index;
 		if (!(a_node->above_median))
@@ -76,6 +58,7 @@ static void	cost_analysis_a(t_stack *stack_a, t_stack *stack_b)
 		else
 			a_node->push_cost += stack_b->size - a_node->target->index;
 		a_node = a_node->next;
+		i++;
 	}
 }
 
@@ -87,11 +70,11 @@ static void	set_target_a(t_stack *stack_a, t_stack *stack_b)
 	int		best_match;
 
 	a_node = stack_a->front;
-	while (a_node)
+	while (a_node != stack_a->rear)
 	{
 		best_match = INT_MAX;
 		b_node = stack_b->front;
-		while (b_node)
+		while (b_node != stack_b->rear)
 		{
 			if (b_node->data < best_match)
 			{
