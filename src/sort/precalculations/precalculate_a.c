@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:05:05 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/03 18:08:30 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 16:46:53 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,32 +62,46 @@ static void	cost_analysis_a(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
+static t_node	*helper_set_target_a(int *best_match, t_stack *stack_b)
+{
+	t_node	*b_node;
+	t_node	*target;
+	int		i;
+
+	i = 0;
+	b_node = stack_b->front;
+	while (i < stack_b->size)
+	{
+		if (b_node->data < *best_match)
+		{
+			*best_match = b_node->data;
+			target = b_node;
+		}
+		b_node = b_node->next;
+		i++;
+	}
+	return (target);
+}
+
 static void	set_target_a(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*a_node;
-	t_node	*b_node;
 	t_node	*target;
 	int		best_match;
+	int		i;
 
+	i = 0;
 	a_node = stack_a->front;
-	while (a_node != stack_a->rear)
+	while (i < stack_a->size)
 	{
 		best_match = INT_MAX;
-		b_node = stack_b->front;
-		while (b_node != stack_b->rear)
-		{
-			if (b_node->data < best_match)
-			{
-				best_match = b_node->data;
-				target = b_node;
-			}
-			b_node = b_node->next;
-		}
+		target = helper_set_target_a(&best_match, stack_b);
 		if (best_match == INT_MAX)
 			a_node->target = get_max(stack_b);
 		else
 			a_node->target = target;
 		a_node = a_node->next;
+		i++;
 	}
 }
 
@@ -95,7 +109,7 @@ void	precalculate_a(t_stack *stack_a, t_stack *stack_b)
 {
 	current_index(stack_a);
 	current_index(stack_b);
-	cost_analysis_a(stack_a, stack_b);
 	set_target_a(stack_a, stack_b);
+	cost_analysis_a(stack_a, stack_b);
 	set_cheapest(stack_a);
 }

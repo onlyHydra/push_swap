@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:05:24 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/03 18:08:25 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 13:23:25 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,47 @@ void	set_cheapest(t_stack *stack)
 	cheapest->cheapest = true;
 }
 
+static t_node	*helper_set_target_b(int *best_match, t_stack *stack_a,
+		t_node *node_b)
+{
+	t_node	*a_node;
+	t_node	*target;
+	int		i;
+
+	i = 0;
+	a_node = stack_a->front;
+	while (i < stack_a->size)
+	{
+		if (a_node->data < node_b->data && a_node->data < *best_match)
+		{
+			*best_match = a_node->data;
+			target = a_node;
+		}
+		a_node = a_node->next;
+		i++;
+	}
+	return (target);
+}
+
 static void	set_target_b(t_stack *stack_a, t_stack *stack_b)
 {
-	t_node	*node_a;
 	t_node	*node_b;
 	t_node	*target;
 	int		best_match;
+	int		i;
 
+	i = 0;
 	node_b = stack_b->front;
-	while (node_b)
+	while (i < stack_b->size)
 	{
 		best_match = INT_MAX;
-		node_a = stack_a->front;
-		while (node_a)
-		{
-			if (node_a->data < node_b->data && node_a->data < best_match)
-			{
-				best_match = node_a->data;
-				target = node_a;
-			}
-			node_a = node_a->next;
-		}
+		target = helper_set_target_b(&best_match, stack_a, node_b);
 		if (best_match == INT_MAX)
 			node_b->target = get_min(stack_a);
 		else
 			node_b->target = target;
 		node_b = node_b->next;
+		i++;
 	}
 }
 

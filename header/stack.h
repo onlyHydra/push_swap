@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 03:47:39 by hydra             #+#    #+#             */
-/*   Updated: 2025/02/03 17:33:32 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 19:26:52 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_node
 
 typedef struct s_stack
 {
-	t_node			*array;
 	t_node			*front;
 	t_node			*rear;
 	int				size;
@@ -94,6 +93,10 @@ void				rotate(t_stack *stack);
  */
 void				reverse_rotate(t_stack *stack);
 
+/** print the stack
+ *  @param stack: the stack to print
+ */
+void				stack_print(t_stack *stack);
 // Sorting functions
 
 /** swap the first two elements of stack A

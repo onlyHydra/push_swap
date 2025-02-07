@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:46:22 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/03 15:22:52 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 19:25:29 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	move_a(t_stack **stack_a, t_stack **stack_b)
 	t_node	*target_node;
 
 	target_node = find_cheapest_node(*stack_a);
+    printf("Cheapest node %d \n", target_node->data);
 	if (target_node->above_median && target_node->target->above_median)
 		rotate_both(stack_a, stack_b, target_node);
 	else if (target_node->below_median && target_node->target->below_median)

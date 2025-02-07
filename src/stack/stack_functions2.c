@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:12:59 by hydra             #+#    #+#             */
-/*   Updated: 2025/01/10 23:04:00 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 17:27:07 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,20 @@ void	free_stack(t_stack *stack)
 		stack->size--;
 	}
 	free(stack);
+}
+
+void	stack_print(t_stack *stack)
+{
+	t_node	*node;
+	int		i;
+
+	i = 0;
+	node = stack->front;
+	while (i < stack->size)
+	{
+		ft_printf("%d ", node->data);
+		node = node->next;
+		i++;
+	}
+    ft_printf("\n");
 }
