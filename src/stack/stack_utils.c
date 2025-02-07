@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 23:41:00 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/07 16:37:34 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 21:31:53 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,20 @@ t_node	*get_min(t_stack *stack)
 {
 	t_node	*node;
 	t_node	*min;
+	int		min_index;
 	int		i;
 
 	i = 0;
+	min_index = INT_MAX;
 	node = stack->front;
-	min = node;
+	min = NULL;
 	while (i < stack->size)
 	{
-		if (node->data < min->data)
+		if (node->data < min_index)
+		{
+			min_index = node->data;
 			min = node;
+		}
 		node = node->next;
 		i++;
 	}

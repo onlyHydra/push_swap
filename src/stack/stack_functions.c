@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 19:27:34 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/03 17:32:13 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 19:44:11 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_stack	*create_stack(int capacity)
 	stack = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	stack->array = NULL;
 	stack->front = NULL;
 	stack->rear = NULL;
 	stack->size = 0;
@@ -72,7 +71,6 @@ t_stack	*create_empty_stack(int capacity)
 	stack = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	stack->array = NULL;
 	stack->front = NULL;
 	stack->rear = NULL;
 	stack->size = 0;

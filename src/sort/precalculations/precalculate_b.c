@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 22:05:24 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/07 13:23:25 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/07 20:35:25 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_node	*helper_set_target_b(int *best_match, t_stack *stack_a,
 	a_node = stack_a->front;
 	while (i < stack_a->size)
 	{
-		if (a_node->data < node_b->data && a_node->data < *best_match)
+		if (a_node->data > node_b->data && a_node->data < *best_match)
 		{
 			*best_match = a_node->data;
 			target = a_node;
