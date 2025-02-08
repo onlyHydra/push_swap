@@ -15,7 +15,22 @@ LIBFT = $(LIBDIR)/libft
 FT_PRINTF = $(LIBDIR)/ft_printf
 
 # Source files and object files
-SRCS = $(shell find $(SRCDIR) -name '*.c')
+
+SRCS = src/stack/stack_functions.c \
+	src/stack/stack_functions2.c \
+	src/stack/stack_utils.c \
+	src/sort/precalculations/move_a.c \
+	src/sort/precalculations/move_b.c \
+	src/sort/precalculations/precalculate_a.c \
+	src/sort/precalculations/precalculate_b.c \
+	src/sort/fast_sort.c \
+	src/sort/long_sort.c \
+	src/sort/sort_commands/rotate_commands.c \
+	src/sort/sort_commands/rotate_commands2.c \
+	src/sort/sort_commands/swap_commands.c \
+	src/main.c \
+	src/validator/validator.c \
+
 OBJS = $(SRCS:.c=.o)
 
 # Executable name

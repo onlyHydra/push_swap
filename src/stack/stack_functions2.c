@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:12:59 by hydra             #+#    #+#             */
-/*   Updated: 2025/02/07 17:27:07 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:49:52 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,5 @@ void	stack_print(t_stack *stack)
 		node = node->next;
 		i++;
 	}
-    ft_printf("\n");
+	ft_printf("\n");
 }

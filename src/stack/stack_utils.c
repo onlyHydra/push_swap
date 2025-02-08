@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 23:41:00 by schiper           #+#    #+#             */
-/*   Updated: 2025/02/07 21:31:53 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:40:24 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	stack_sorted(t_stack *stack)
 
 	i = 0;
 	node = stack->front;
-	while (i < stack->size)
+	while (i < stack->size - 1)
 	{
 		if (node->data > node->next->data)
 			return (false);

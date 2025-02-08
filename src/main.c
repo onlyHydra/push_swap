@@ -6,7 +6,7 @@
 /*   By: schiper <schiper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 04:29:06 by hydra             #+#    #+#             */
-/*   Updated: 2025/02/07 22:26:20 by schiper          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:51:15 by schiper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int	main(int argc, char **argv)
 		else
 			sort_stack(stack_a, stack_b);
 	}
-	//stack_print(stack_a);
 	free_stack(stack_a);
-    free_stack(stack_b);
+	free_stack(stack_b);
 	return (0);
 }
